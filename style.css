@@ -965,3 +965,43 @@ input[type="range"].filled {
     padding: 16px 10px 48px;
   }
 }
+
+/* ── SEO Content Block ── */
+.seo-content {
+  background: #f9f9f9;
+  border-top: 1px solid #e8e8e8;
+  padding: 48px 16px;
+  margin-top: 0;
+}
+.seo-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.seo-content h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+.seo-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 28px 0 8px;
+}
+.seo-content p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.seo-content strong {
+  color: #333;
+}
+.seo-credit {
+  margin-top: 24px;
+  font-size: 0.875rem !important;
+  color: #888 !important;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 16px;
+}
