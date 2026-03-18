@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── Primary SEO ── -->
+  <title>FatFIRE Canada Calculator — Find Your Financial Independence Number</title>
+  <meta name="description" content="Free FatFIRE calculator for Canadians. Find your financial independence number, see your FI timeline by province, and discover how the FatFIRE Freedom Accelerator Strategy could get you there years sooner." />
+  <meta name="keywords" content="FatFIRE Canada, FatFIRE calculator, financial independence Canada, FIRE Canada, FI number calculator, Smith Manoeuvre, Manulife One, Canadian mortgage strategy, retire early Canada, FatFIRE Ontario" />
+  <meta name="author" content="Jonah Hoyos, Tango Ontario" />
+  <link rel="canonical" href="https://fatfire-calculator.vercel.app/" />
+
+  <!-- ── Open Graph (Facebook, LinkedIn) ── -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fatfire-calculator.vercel.app/" />
+  <meta property="og:title" content="FatFIRE Canada Calculator — Your Financial Independence Number" />
+  <meta property="og:description" content="How many years until you reach FatFIRE? Find out free. Then see how mortgage restructuring could move your FI date up by years. Built for Canadians, by a Canadian mortgage strategist." />
+  <meta property="og:image" content="https://fatfire-calculator.vercel.app/og-image.png" />
+  <meta property="og:site_name" content="FatFIRE Canada" />
+  <meta property="og:locale" content="en_CA" />
+
+  <!-- ── Twitter / X Card ── -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@jonahhoyos" />
+  <meta name="twitter:creator" content="@jonahhoyos" />
+  <meta name="twitter:title" content="FatFIRE Canada Calculator — Your Financial Independence Number" />
+  <meta name="twitter:description" content="Free FatFIRE calculator for Canadians. Find your FI number, see your timeline, and discover how mortgage restructuring accelerates your path to freedom." />
+  <meta name="twitter:image" content="https://fatfire-calculator.vercel.app/og-image.png" />
+
+  <!-- ── Structured Data (JSON-LD) ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "FatFIRE Canada Calculator",
+    "description": "Free calculator to find your FatFIRE number and FI timeline as a Canadian. Includes the FatFIRE Freedom Accelerator Strategy showing how mortgage restructuring (Manulife One + Smith Manoeuvre) accelerates financial independence.",
+    "url": "https://fatfire-calculator.vercel.app/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+    "author": {
+      "@type": "Person",
+      "name": "Jonah Hoyos",
+      "jobTitle": "Mortgage Agent, Level 1",
+      "worksFor": { "@type": "Organization", "name": "Tango Ontario" },
+      "sameAs": [
+        "https://www.instagram.com/jonahhoyos",
+        "https://www.youtube.com/@jonahhoyos",
+        "https://x.com/jonahhoyos"
+      ]
+    }
+  }
+  </script>
+
+  <!-- ── Fonts ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>FatFIRE Canada <span class="maple">🍁</span></h1>
+      <p>Calculate your path to financial independence in Canada</p>
+    </div>
+  </header>
+
+  <!-- ── Main ── -->
+  <main class="main-content">
+
+    <!-- ════════════════════════════════════════════════
+         CALCULATOR 1 — FatFIRE Number (always visible)
+         ════════════════════════════════════════════════ -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🎯</span>
+        Your FatFIRE Number
+      </h2>
+
+      <!-- Current Age -->
+      <div class="input-group">
+        <div class="input-label">
+          <span>Current Age</span>
+          <span class="input-value" id="val-age">35 yrs</span>
+        </div>
+        <input type="range" id="slider-age" min="20" max="70" step="1" value="35" />
+      </div>
+
+      <!-- Annual Household Income -->
+      <div class="input-group">
+        <div class="input-label">
+          <span>Annual Household Income</span>
+          <span class="input-value" id="val-income">$180,000</span>
+        </div>
+        <input type="range" id="slider-income" min="50000" max="500000" step="5000" value="180000" />
+      </div>
+
+      <!-- Current Investments / Savings -->
+      <div class="input-group">
+        <div class="input-label">
+          <span>Current Investments &amp; Savings</span>
+          <span class="input-value" id="val-savings">$100,000</span>
+        </div>
+        <input type="range" id="slider-savings" min="0" max="2000000" step="10000" value="100000" />
+      </div>
+
+      <!-- Expected Annual Retirement Expenses -->
+      <div class="input-group">
+        <div class="input-label">
+          <span>Expected Annual Retirement Expenses</span>
+          <span class="input-value" id="val-expenses">$120,000</span>
+        </div>
+        <input type="range" id="slider-expenses" min="50000" max="300000" step="5000" value="120000" />
+      </div>
+
+      <!-- Return Rate Toggle -->
+      <div class="input-group">
+        <div class="input-label">
+          <span>Expected Return Rate</span>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn" data-rate="0.05">Conservative<br>5%</button>
+          <button class="toggle-btn active" data-rate="0.08">Moderate<br>8%</button>
+          <button class="toggle-btn" data-rate="0.10">Aggressive<br>10%</button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="results-card">
+        <div class="fatfire-number">
+          <div class="fatfire-label">Your FatFIRE Number</div>
+          <div class="fatfire-amount" id="result-number">$3,000,000</div>
+        </div>
+
+        <div class="fatfire-trajectory" id="result-trajectory">
+          At your current trajectory, you'll reach FatFIRE at age <em>—</em>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span>Current savings: <strong id="progress-now">—</strong></span>
+            <span><strong id="progress-pct">—</strong> of target</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+          </div>
+          <div class="progress-meta" style="margin-top:4px">
+            <span></span>
+            <span>Target: <strong id="progress-target">—</strong></span>
+          </div>
+        </div>
+
+        <!-- Math Breakdown -->
+        <div class="math-breakdown">
+          <div class="math-item math-item--province">
+            <div class="m-label">Province</div>
+            <div class="m-value">
+              <select id="select-province" class="province-select-inline">
+                <option value="ON" selected>Ontario</option>
+                <option value="BC">British Columbia</option>
+                <option value="AB">Alberta</option>
+                <option value="QC">Quebec</option>
+                <option value="MB">Manitoba</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NB">New Brunswick</option>
+                <option value="NL">Newfoundland &amp; Labrador</option>
+                <option value="PE">Prince Edward Island</option>
+              </select>
+            </div>
+          </div>
+          <div class="math-item">
+            <div class="m-label">FatFIRE Target (25× expenses)</div>
+            <div class="m-value" id="math-target">—</div>
+          </div>
+          <div class="math-item">
+            <div class="m-label" id="math-taxrate-label">Effective Tax Rate (Ontario)</div>
+            <div class="m-value" id="math-taxrate">—</div>
+          </div>
+          <div class="math-item">
+            <div class="m-label">After-Tax Return Rate</div>
+            <div class="m-value" id="math-aftertax">—</div>
+          </div>
+          <div class="math-item">
+            <div class="m-label">Annual Contributions (20% income)</div>
+            <div class="m-value" id="math-contrib">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════════
+         SCROLL ARROW — between calculators
+         ════════════════════════════════════════════════ -->
+    <div class="scroll-arrow-wrap">
+      <div class="scroll-arrow-words">
+        <span>FatFIRE</span>
+        <span>Freedom</span>
+        <span>Accelerator</span>
+        <span>Strategy</span>
+      </div>
+      <div class="scroll-arrow-chevron">
+        <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 11L16 21L26 11" stroke="#D52B1E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════════
+         CALCULATOR 2 — Freedom Accelerator
+         ════════════════════════════════════════════════ -->
+    <div class="card" id="calc2-card">
+      <h2 class="card-title">
+        <span class="icon">🍁</span>
+        FatFIRE Freedom Accelerator Strategy
+      </h2>
+
+      <!-- ── Step A: Input Fields (always visible, no gate) ── -->
+      <div id="calc2-step-a">
+        <p class="calc2-intro">
+          Most Canadians with a mortgage are leaving <strong>years of their life</strong> on the table.
+          Enter your numbers below and we'll show you how much faster you could reach FatFIRE.
+        </p>
+
+        <!-- Mortgage Balance -->
+        <div class="input-group">
+          <div class="input-label">
+            <span>Current Mortgage Balance</span>
+            <span class="input-value" id="val-mortgage">$650,000</span>
+          </div>
+          <input type="range" id="slider-mortgage" min="200000" max="1500000" step="10000" value="650000" />
+        </div>
+
+        <!-- Mortgage Rate -->
+        <div class="input-group">
+          <div class="input-label">
+            <span>Mortgage Interest Rate</span>
+            <span class="input-value" id="val-mortrate">4.5%</span>
+          </div>
+          <input type="range" id="slider-mortrate" min="0.03" max="0.08" step="0.001" value="0.045" />
+        </div>
+
+        <!-- Amortization Remaining -->
+        <div class="input-group">
+          <div class="input-label">
+            <span>Mortgage Amortization Remaining</span>
+            <span class="input-value" id="val-amort">22 yrs</span>
+          </div>
+          <input type="range" id="slider-amort" min="5" max="30" step="1" value="22" />
+        </div>
+
+        <!-- HELOC Available -->
+        <div class="input-group">
+          <div class="input-label">
+            <span>HELOC Available / Home Equity</span>
+            <span class="input-value" id="val-heloc">$150,000</span>
+          </div>
+          <input type="range" id="slider-heloc" min="0" max="800000" step="10000" value="150000" />
+        </div>
+
+        <button class="btn-calculate" id="btn-calc2-go" onclick="handleCalc2Calculate()">
+          Calculate My Acceleration →
+        </button>
+      </div>
+
+
+      <!-- ── Step B: Teaser + Email Gate (hidden until Calculate clicked) ── -->
+      <div id="calc2-step-b" class="hidden">
+
+        <!-- Teaser Card -->
+        <div class="teaser-card">
+          <div class="teaser-card-label">Based on your numbers:</div>
+          <div class="teaser-row">
+            <span class="teaser-icon">⚡</span>
+            <span class="teaser-line">Estimated FatFIRE acceleration: <strong id="teaser-years">— years sooner</strong></span>
+          </div>
+          <div class="teaser-row">
+            <span class="teaser-icon">📈</span>
+            <span class="teaser-line">Estimated portfolio boost: <strong id="teaser-portfolio">$—</strong> more</span>
+          </div>
+          <div class="teaser-row">
+            <span class="teaser-icon">💰</span>
+            <span class="teaser-line">Estimated interest saved: <strong id="teaser-interest">$—</strong></span>
+          </div>
+        </div>
+
+        <!-- Blurred fake detailed breakdown -->
+        <div class="blurred-report">
+          <div class="blurred-report-inner">
+            <div class="blur-section-title">Your Full FatFIRE Acceleration Report</div>
+            <div class="blur-row"><span>Traditional path: FatFIRE at age</span><span>58</span></div>
+            <div class="blur-row"><span>With Freedom Accelerator: FatFIRE at age</span><span>51</span></div>
+            <div class="blur-row"><span>Years sooner 🍁</span><span>7 years</span></div>
+            <div class="blur-divider"></div>
+            <div class="blur-row"><span>Accelerated mortgage payoff</span><span>9 years earlier</span></div>
+            <div class="blur-row"><span>Total interest saved</span><span>$187,420</span></div>
+            <div class="blur-row"><span>Smith Manoeuvre tax deductions</span><span>$34,200</span></div>
+            <div class="blur-row"><span>Annual freed-up investment capacity</span><span>+$23,400/yr</span></div>
+            <div class="blur-row"><span>Portfolio boost at FatFIRE target age</span><span>$312,000</span></div>
+            <div class="blur-row"><span>Effective annual return after tax</span><span>5.8%</span></div>
+          </div>
+        </div>
+
+        <!-- Email Gate CTA -->
+        <div class="email-gate-b">
+          <h3>Unlock Your Full FatFIRE Acceleration Report</h3>
+          <p>Get your personalized breakdown — exactly how the FatFIRE Freedom Accelerator Strategy moves your FI date, step by step.</p>
+
+          <form class="gate-form" id="gate-form">
+            <input type="text" id="gate-firstname" name="firstName" placeholder="First Name" required autocomplete="given-name" />
+            <input type="email" id="gate-email" name="email" placeholder="Email Address" required autocomplete="email" />
+            <button type="submit" class="btn-gate">Send My Free Report →</button>
+            <p class="privacy-note">No spam. Unsubscribe anytime.</p>
+          </form>
+        </div>
+
+        <!-- Edit inputs link -->
+        <div style="text-align:center;margin-top:16px;">
+          <button class="btn-back" onclick="handleCalc2Back()">← Edit My Numbers</button>
+        </div>
+      </div>
+
+
+      <!-- ── Step C: Full Results (hidden until email submitted) ── -->
+      <div id="calc2-step-c" class="hidden">
+
+        <div class="calc2-inputs">
+          <p style="font-size:0.85rem;color:var(--grey-500);margin-bottom:20px;">
+            ✅ Results based on income of <strong id="c2-income-display">—</strong> — adjust sliders below to update in real time
+          </p>
+
+          <!-- Live-adjustable sliders in full results view -->
+          <div class="input-group">
+            <div class="input-label">
+              <span>Mortgage Balance</span>
+              <span class="input-value" id="c2b-balance-val">$650,000</span>
+            </div>
+            <input type="range" id="c2b-balance" min="200000" max="1500000" step="10000" value="650000">
+          </div>
+          <div class="input-group">
+            <div class="input-label">
+              <span>Mortgage Interest Rate</span>
+              <span class="input-value" id="c2b-rate-val">4.5%</span>
+            </div>
+            <input type="range" id="c2b-rate" min="0.03" max="0.08" step="0.001" value="0.045">
+          </div>
+          <div class="input-group">
+            <div class="input-label">
+              <span>Amortization Remaining</span>
+              <span class="input-value" id="c2b-amort-val">22 years</span>
+            </div>
+            <input type="range" id="c2b-amort" min="5" max="30" step="1" value="22">
+          </div>
+          <div class="input-group">
+            <div class="input-label">
+              <span>HELOC / Home Equity Available</span>
+              <span class="input-value" id="c2b-heloc-val">$150,000</span>
+            </div>
+            <input type="range" id="c2b-heloc" min="0" max="800000" step="5000" value="150000">
+          </div>
+        </div>
+
+        <!-- Side-by-side Comparison -->
+        <div class="comparison-grid">
+          <div class="scenario-card">
+            <div class="scenario-label">Scenario A</div>
+            <div class="scenario-title">Traditional Path</div>
+            <div class="scenario-age" id="scenario-a-age">—</div>
+            <div class="scenario-sub" id="scenario-a-sub">Standard mortgage + investing 20% of income</div>
+          </div>
+          <div class="scenario-card scenario-b">
+            <div class="scenario-label">Scenario B 🍁</div>
+            <div class="scenario-title">FatFIRE Freedom Accelerator</div>
+            <div class="scenario-age" id="scenario-b-age">—</div>
+            <div class="scenario-sub" id="scenario-b-sub">Income parking + Smith Manoeuvre + accelerated payoff</div>
+          </div>
+        </div>
+
+        <!-- Big Reveal -->
+        <div class="big-reveal">
+          <div class="reveal-headline" id="reveal-headline">Calculating your acceleration…</div>
+          <div class="reveal-sub" id="reveal-sub"></div>
+
+          <!-- Gains Breakdown -->
+          <div class="gains-grid">
+            <div class="gain-item">
+              <div class="g-label">Lifetime Interest Saved</div>
+              <div class="g-value" id="gain-interest">—</div>
+            </div>
+            <div class="gain-item">
+              <div class="g-label">Lifetime Tax Deductions</div>
+              <div class="g-value" id="gain-taxdeductions">—</div>
+            </div>
+            <div class="gain-item">
+              <div class="g-label">Lifetime Freed Mortgage Payments</div>
+              <div class="g-value" id="gain-freed">—</div>
+            </div>
+          </div>
+
+          <a href="https://chatwithjonah.com" class="btn-cta">
+            Book a Free Strategy Call →
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── Contact anchor ── -->
+  <div id="contact"></div>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <div class="footer-social">
+      <a href="https://www.instagram.com/jonahhoyos" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@jonahhoyos" target="_blank" rel="noopener" aria-label="YouTube" class="social-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/jonahhoyos" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@jonahhoyos" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+      <a href="https://x.com/jonahhoyos" target="_blank" rel="noopener" aria-label="X" class="social-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+    <div class="footer-brand">
+      <img src="tango-logo.png" alt="Tango Ontario" class="footer-logo">
+      <div class="footer-text">
+        <strong>Jonah Hoyos</strong> — Mortgage Agent, Level 1
+        <span class="footer-divider">|</span>
+        Lic. #13691
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      For illustrative purposes only. Not financial or tax advice. Consult a financial planner and accountant for personalized guidance.
+    </p>
+  </footer>
+
+  <script src="calculator.js"></script>
+</body>
+</html>
