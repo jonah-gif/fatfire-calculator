@@ -968,9 +968,9 @@ input[type="range"].filled {
 
 /* ── SEO Content Block ── */
 .seo-content {
-  background: #f9f9f9;
-  border-top: 1px solid #e8e8e8;
-  padding: 48px 16px;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+  padding: 24px 16px 16px;
   margin-top: 0;
 }
 .seo-inner {
@@ -978,30 +978,33 @@ input[type="range"].filled {
   margin: 0 auto;
 }
 .seo-content h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 12px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #bbb;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 .seo-content h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 28px 0 8px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #bbb;
+  margin: 10px 0 4px;
 }
 .seo-content p {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.7;
-  margin-bottom: 12px;
+  font-size: 0.68rem;
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 4px;
 }
 .seo-content strong {
-  color: #333;
+  color: #bbb;
+  font-weight: 500;
 }
 .seo-credit {
-  margin-top: 24px;
-  font-size: 0.875rem !important;
-  color: #888 !important;
-  border-top: 1px solid #e0e0e0;
-  padding-top: 16px;
+  margin-top: 10px;
+  font-size: 0.65rem !important;
+  color: #ccc !important;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 8px;
 }
