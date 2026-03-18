@@ -496,37 +496,43 @@ async function handleGateSubmit(e) {
   const yearsFreed   = Math.max(0, b.yearsEarlier);
   const lifetimeFreed = b.annualMortgagePayment * yearsFreed;
 
-  // POST to serverless function (fire-and-forget — don't block the UI)
-  fetch('/api/submit', {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      firstName,
-      email,
-      // Profile
-      currentAge:          state.currentAge,
-      annualIncome:        state.calc2Income,
-      currentSavings:      state.currentSavings,
-      retirementExpenses:  state.retirementExpenses,
-      province:            state.province,
-      // Calc 1 results
-      fatfireTarget:       a.target,
-      fatfireAge:          a.fireAge,
-      fatfireYears:        a.n,
-      // Calc 2 inputs
-      mortgageBalance:     state.mortgageBalance,
-      mortgageRate:        state.mortgageRate,
-      mortgageAmort:       state.mortgageAmort,
-      heloc:               state.heloc || 0,
-      // Calc 2 results
-      scenarioAAge:        a.fireAge,
-      scenarioBAge:        b.fireAge,
-      yearsSooner,
-      interestSaved:       b.intSaved,
-      smTaxBenefit:        b.smTaxBenefit,
-      lifetimeFreed,
-    }),
-  }).catch(err => console.warn('[FatFIRE] Lead submit failed silently:', err));
+  // POST to serverless function
+  const payload = {
+    firstName,
+    email,
+    currentAge:          state.currentAge,
+    annualIncome:        state.calc2Income,
+    currentSavings:      state.currentSavings,
+    retirementExpenses:  state.retirementExpenses,
+    province:            state.province,
+    fatfireTarget:       a.target,
+    fatfireAge:          a.fireAge,
+    fatfireYears:        a.n,
+    mortgageBalance:     state.mortgageBalance,
+    mortgageRate:        state.mortgageRate,
+    mortgageAmort:       state.mortgageAmort,
+    heloc:               state.heloc || 0,
+    scenarioAAge:        a.fireAge,
+    scenarioBAge:        b.fireAge,
+    yearsSooner,
+    interestSaved:       b.intSaved,
+    smTaxBenefit:        b.smTaxBenefit,
+    lifetimeFreed,
+  };
+
+  console.log('[FatFIRE] Submitting lead:', payload);
+
+  try {
+    const res = await fetch('/api/submit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    const json = await res.json();
+    console.log('[FatFIRE] API response:', res.status, json);
+  } catch (err) {
+    console.error('[FatFIRE] API error:', err);
+  }
 
   // Hide step B, show step C immediately (don't wait for API)
   document.getElementById('calc2-step-b').classList.add('hidden');
