@@ -11,6 +11,7 @@ const state = {
   currentSavings: 100000,
   retirementExpenses: 120000,
   returnRate: 0.08,   // Moderate default
+  savingsRate: 0.20,  // NEW — configurable savings rate
   province: 'ON',
 
   // Calc 2
@@ -63,7 +64,7 @@ function calcFatFIRE(currentAge, income, savings, retExpenses, returnRate, provi
   // is approximately half the marginal rate
   const investmentTaxRate = taxRate * 0.5;
   const afterTaxReturn = returnRate * (1 - investmentTaxRate);
-  const annualContrib = income * 0.20;
+  const annualContrib = income * state.savingsRate;          // USE configurable rate
   const r = afterTaxReturn;
   const PV = savings;
   const PMT = annualContrib;
@@ -125,6 +126,7 @@ function bindCalc1() {
     { id: 'slider-income',     stateKey: 'annualIncome',      display: 'val-income',     format: v => fmt(v) },
     { id: 'slider-savings',    stateKey: 'currentSavings',    display: 'val-savings',    format: v => fmt(v) },
     { id: 'slider-expenses',   stateKey: 'retirementExpenses',display: 'val-expenses',   format: v => fmt(v) },
+    { id: 'slider-savingsrate',stateKey: 'savingsRate',       display: 'val-savingsrate',format: v => Math.round(v * 100) + '%' },
   ];
 
   sliders.forEach(({ id, stateKey, display, format }) => {
@@ -212,6 +214,10 @@ function renderCalc1() {
   const taxLabel = document.getElementById('math-taxrate-label');
   if (taxLabel) taxLabel.textContent = `Effective Tax Rate (${PROVINCE_NAMES[state.province] || 'Ontario'})`;
 
+  // Update contribution label to reflect current savings rate
+  const contribLabel = document.getElementById('math-contrib-label');
+  if (contribLabel) contribLabel.textContent = `Annual Contributions (${Math.round(state.savingsRate * 100)}% income)`;
+
   // If calc 2 full results unlocked, re-render
   if (state.calc2Step === 'c') renderCalc2();
 }
@@ -267,7 +273,7 @@ function calcScenarioB(currentAge, income, savings, retExpenses, returnRate, mor
   const investmentTaxRate = taxRate * 0.5; // 50% capital gains inclusion
   const afterTaxReturn = returnRate * (1 - investmentTaxRate);
   const r = afterTaxReturn;
-  const baseContrib = income * 0.20;
+  const baseContrib = income * state.savingsRate;  // USE configurable rate
 
   const helocAvailable = state.heloc || 0;
   const smAddl = smAdditionalCapacity(mortBalance, helocAvailable, mortRate, income, province);
