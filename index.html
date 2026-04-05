@@ -177,7 +177,7 @@
           <span>Current Investments &amp; Savings</span>
           <span class="input-value" id="val-savings">$100,000</span>
         </div>
-        <input type="range" id="slider-savings" min="0" max="2000000" step="10000" value="100000" />
+        <input type="range" id="slider-savings" min="0" max="5000000" step="10000" value="100000" />
       </div>
 
       <!-- Expected Annual Retirement Expenses -->
@@ -187,6 +187,15 @@
           <span class="input-value" id="val-expenses">$120,000</span>
         </div>
         <input type="range" id="slider-expenses" min="50000" max="300000" step="5000" value="120000" />
+      </div>
+
+      <!-- Annual Savings Rate — NEW configurable slider -->
+      <div class="input-group">
+        <div class="input-label">
+          <span>Annual Savings Rate</span>
+          <span class="input-value" id="val-savingsrate">20%</span>
+        </div>
+        <input type="range" id="slider-savingsrate" min="0.05" max="0.80" step="0.01" value="0.20" />
       </div>
 
       <!-- Return Rate Toggle -->
@@ -259,7 +268,7 @@
             <div class="m-value" id="math-aftertax">—</div>
           </div>
           <div class="math-item">
-            <div class="m-label">Annual Contributions (20% income)</div>
+            <div class="m-label" id="math-contrib-label">Annual Contributions (20% income)</div>
             <div class="m-value" id="math-contrib">—</div>
           </div>
         </div>
@@ -307,7 +316,7 @@
             <span>Current Mortgage Balance</span>
             <span class="input-value" id="val-mortgage">$650,000</span>
           </div>
-          <input type="range" id="slider-mortgage" min="200000" max="1500000" step="10000" value="650000" />
+          <input type="range" id="slider-mortgage" min="0" max="1500000" step="10000" value="650000" />
         </div>
 
         <!-- Mortgage Rate -->
@@ -414,7 +423,7 @@
               <span>Mortgage Balance</span>
               <span class="input-value" id="c2b-balance-val">$650,000</span>
             </div>
-            <input type="range" id="c2b-balance" min="200000" max="1500000" step="10000" value="650000">
+            <input type="range" id="c2b-balance" min="0" max="1500000" step="10000" value="650000">
           </div>
           <div class="input-group">
             <div class="input-label">
