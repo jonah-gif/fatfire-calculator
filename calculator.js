@@ -247,7 +247,7 @@ function totalInterest(balance, annualRate, years) {
   return monthly * years * 12 - balance;
 }
 
-// Tax Efficient Investing Through HELOC capacity:
+// Tax-Efficient HELOC Investing capacity:
 // Base from mortgage balance (cash-damming, income parking effect)
 // PLUS HELOC-driven SM investing:
 //   - Each year they borrow from HELOC to invest: heloc * helocDeployRate / helocYears
@@ -258,7 +258,7 @@ function smAdditionalCapacity(mortgageBalance, helocAvailable, mortRate, income,
   const t = Math.max(0, Math.min(1, (mortgageBalance - min) / (max - min)));
   const baseCapacity = 8000 + t * 7000;
 
-  // Tax Efficient Investing Through HELOC HELOC component
+  // Tax-Efficient HELOC Investing HELOC component
   // Assume they deploy HELOC into investments over ~10 years
   const helocDeployYears = 10;
   const annualHelocInvested = (helocAvailable || 0) / helocDeployYears;
@@ -415,7 +415,7 @@ function renderTeaser() {
   const annualSmRefund = Math.round(avgHelocBalance * state.mortgageRate * taxRate);
   const punchlineEl = document.getElementById('province-punchline');
   if (punchlineEl && annualSmRefund > 0) {
-    punchlineEl.innerHTML = `<span class="punchline-icon">🍁</span> As a homeowner in <strong>${provinceName}</strong> with a <strong>${Math.round(taxRate * 100)}%</strong> marginal rate, the Tax Efficient Investing Through HELOC could generate an estimated <strong>$${annualSmRefund.toLocaleString('en-CA')}/year</strong> in tax refunds — reinvested to compound your acceleration.`;
+    punchlineEl.innerHTML = `<span class="punchline-icon">🍁</span> As a homeowner in <strong>${provinceName}</strong> with a <strong>${Math.round(taxRate * 100)}%</strong> marginal rate, the Tax-Efficient HELOC Investing could generate an estimated <strong>$${annualSmRefund.toLocaleString('en-CA')}/year</strong> in tax refunds — reinvested to compound your acceleration.`;
   }
     `~${fmt(roughInterestSaved)}`;
 }
