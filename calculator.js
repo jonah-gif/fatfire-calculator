@@ -409,7 +409,8 @@ function renderTeaser() {
     yearsSooner > 0 ? `~${yearsSooner} year${yearsSooner !== 1 ? 's' : ''} sooner` : 'Significant acceleration';
   document.getElementById('teaser-portfolio').textContent =
     portfolioBoost > 0 ? `~${fmt(portfolioBoost)}` : '~$50,000+';
-  document.getElementById('teaser-interest').textContent =
+  document.getElementById('teaser-interest').textContent = `~${fmt(roughInterestSaved)}`;
+
   // Province-specific punchline
   const provinceName = PROVINCE_NAMES[state.province] || 'Ontario';
   const taxRate = getEffectiveTaxRate(state.annualIncome, state.province);
@@ -419,7 +420,6 @@ function renderTeaser() {
   if (punchlineEl && annualSmRefund > 0) {
     punchlineEl.innerHTML = `<span class="punchline-icon">🍁</span> As a homeowner in <strong>${provinceName}</strong> with a <strong>${Math.round(taxRate * 100)}%</strong> marginal rate, the Tax-Efficient HELOC Investing could generate an estimated <strong>$${annualSmRefund.toLocaleString('en-CA')}/year</strong> in tax refunds — reinvested to compound your acceleration.`;
   }
-    `~${fmt(roughInterestSaved)}`;
 }
 
 // ── Render Calc 2 Full ─────────────────────────────────────────────────────
