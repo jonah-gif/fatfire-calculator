@@ -48,6 +48,18 @@ const PROVINCE_NAMES = {
   NL: 'Newfoundland & Labrador', PE: 'Prince Edward Island',
 };
 
+// ── UTM Parameter Capture ──────────────────────────────────────────────────────────────────────
+function getUTMParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get('utm_source') || '',
+    utm_medium: params.get('utm_medium') || '',
+    utm_campaign: params.get('utm_campaign') || '',
+    utm_content: params.get('utm_content') || '',
+    utm_term: params.get('utm_term') || '',
+  };
+}
+
 function getEffectiveTaxRate(income, province) {
   const brackets = PROVINCE_TAX[province] || PROVINCE_TAX['ON'];
   for (const [max, rate] of brackets) {
@@ -396,6 +408,15 @@ function renderTeaser() {
   document.getElementById('teaser-portfolio').textContent =
     portfolioBoost > 0 ? `~${fmt(portfolioBoost)}` : '~$50,000+';
   document.getElementById('teaser-interest').textContent =
+  // Province-specific punchline
+  const provinceName = PROVINCE_NAMES[state.province] || 'Ontario';
+  const taxRate = getEffectiveTaxRate(state.annualIncome, state.province);
+  const avgHelocBalance = (state.heloc || 150000) * 0.5;
+  const annualSmRefund = Math.round(avgHelocBalance * state.mortgageRate * taxRate);
+  const punchlineEl = document.getElementById('province-punchline');
+  if (punchlineEl && annualSmRefund > 0) {
+    punchlineEl.innerHTML = `<span class="punchline-icon">🍁</span> As a homeowner in <strong>${provinceName}</strong> with a <strong>${Math.round(taxRate * 100)}%</strong> marginal rate, the Smith Manoeuvre could generate an estimated <strong>$${annualSmRefund.toLocaleString('en-CA')}/year</strong> in tax refunds — reinvested to compound your acceleration.`;
+  }
     `~${fmt(roughInterestSaved)}`;
 }
 
@@ -524,7 +545,9 @@ async function handleGateSubmit(e) {
     interestSaved:       b.intSaved,
     smTaxBenefit:        b.smTaxBenefit,
     lifetimeFreed,
-  };
+      // UTM tracking
+      ...getUTMParams(),
+    };
 
   console.log('[FatFIRE] Submitting lead:', payload);
 
