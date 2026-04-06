@@ -130,7 +130,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-</head>
+    <!-- Google Analytics 4 -- replace G-XXXXXXXXXX with your GA4 Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    </head>
 <body>
 
   <!-- ── Header ── -->
@@ -372,7 +380,41 @@
           </div>
         </div>
 
-        <!-- Blurred fake detailed breakdown -->
+                  <!-- Strategy Explainer + Province Punchline -->
+          <div class="strategy-explainer">
+            <div class="strategy-explainer-title">What's driving your acceleration?</div>
+            <p class="strategy-explainer-text">
+              Your results come from three Canadian mortgage strategies working together:
+            </p>
+            <div class="strategy-pills">
+              <div class="strategy-pill">
+                <span class="pill-icon">🏦</span>
+                <div class="pill-content">
+                  <strong>Income Parking</strong> (Manulife One)<br>
+                  <span class="pill-desc">Your paycheque reduces your mortgage balance daily — saving interest with zero lifestyle change.</span>
+                </div>
+              </div>
+              <div class="strategy-pill">
+                <span class="pill-icon">📊</span>
+                <div class="pill-content">
+                  <strong>Tax-Deductible Investing</strong> (Smith Manoeuvre)<br>
+                  <span class="pill-desc">Convert non-deductible mortgage interest into tax-deductible investment loan interest — a Canada-exclusive strategy.</span>
+                </div>
+              </div>
+              <div class="strategy-pill">
+                <span class="pill-icon">⚡</span>
+                <div class="pill-content">
+                  <strong>Accelerated Payoff</strong><br>
+                  <span class="pill-desc">Freed cashflow compounds — every dollar saved on interest gets reinvested toward your FatFIRE number.</span>
+                </div>
+              </div>
+            </div>
+            <div class="province-punchline" id="province-punchline">
+              <!-- Dynamically populated by calculator.js -->
+            </div>
+          </div>
+
+          <!-- Blurred fake detailed breakdown -->
         <div class="blurred-report">
           <div class="blurred-report-inner">
             <div class="blur-section-title">Your Full FatFIRE Acceleration Report</div>
