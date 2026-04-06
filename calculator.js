@@ -138,20 +138,21 @@ function bindCalc1() {
     { id: 'slider-income',     stateKey: 'annualIncome',      display: 'val-income',     format: v => fmt(v) },
     { id: 'slider-savings',    stateKey: 'currentSavings',    display: 'val-savings',    format: v => fmt(v) },
     { id: 'slider-expenses',   stateKey: 'retirementExpenses',display: 'val-expenses',   format: v => fmt(v) },
-    { id: 'slider-savingsrate',stateKey: 'savingsRate',       display: 'val-savingsrate',format: v => Math.round(v * 100) + '%' },
+    { id: 'slider-savingsrate',stateKey: 'savingsRate',       display: 'val-savingsrate',format: v => Math.round(v * 100) + '%', scale: 0.01 },
   ];
 
-  sliders.forEach(({ id, stateKey, display, format }) => {
+  sliders.forEach(({ id, stateKey, display, format, scale }) => {
     const input = document.getElementById(id);
     const label = document.getElementById(display);
     if (!input) return;
 
-    input.value = state[stateKey];
+    input.value = scale ? state[stateKey] / scale : state[stateKey];
     label.textContent = format(state[stateKey]);
     updateSliderFill(input);
 
     input.addEventListener('input', () => {
-      state[stateKey] = parseFloat(input.value);
+      const raw = parseFloat(input.value);
+      state[stateKey] = scale ? raw * scale : raw;
       label.textContent = format(state[stateKey]);
       updateSliderFill(input);
 
@@ -360,17 +361,18 @@ function bindCalc2() {
     { id: 'slider-heloc',     stateKey: 'heloc',           display: 'val-heloc',     format: v => fmt(v) },
   ];
 
-  sliders.forEach(({ id, stateKey, display, format }) => {
+  sliders.forEach(({ id, stateKey, display, format, scale }) => {
     const input = document.getElementById(id);
     const label = document.getElementById(display);
     if (!input) return;
 
-    input.value = state[stateKey];
+    input.value = scale ? state[stateKey] / scale : state[stateKey];
     label.textContent = format(state[stateKey]);
     updateSliderFill(input);
 
     input.addEventListener('input', () => {
-      state[stateKey] = parseFloat(input.value);
+      const raw = parseFloat(input.value);
+      state[stateKey] = scale ? raw * scale : raw;
       label.textContent = format(state[stateKey]);
       updateSliderFill(input);
     });
