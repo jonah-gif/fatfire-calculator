@@ -13,8 +13,8 @@ const state = {
   returnRate: 0.08,   // Moderate default
   savingsRate: 0.20,  // NEW — configurable savings rate
   dbPension: 0,
-  includeCPP: true,
-  includeOAS: true,
+  includeCPP: false,
+  includeOAS: false,
   province: 'ON',
 
   // Calc 2
