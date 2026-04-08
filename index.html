@@ -149,6 +149,21 @@
     </div>
   </header>
 
+  <!-- Differentiation strip -->
+  <section class="diff-strip" style="background:#0f1419;border-bottom:1px solid #1f2937;padding:18px 16px;">
+    <div style="max-width:960px;margin:0 auto;">
+      <p style="color:#ffffff;font-weight:700;font-size:15px;text-align:center;margin:0 0 10px;letter-spacing:0.3px;">Why this isn't just a FIRE calculator with bigger numbers</p>
+      <ul style="list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px 16px;color:#cbd5e1;font-size:13px;">
+        <li>✅ Canadian provincial tax rates baked in</li>
+        <li>✅ Smith Manoeuvre scenario built in</li>
+        <li>✅ Manulife One offset mortgage modeled</li>
+        <li>✅ Income parking / Power of the Paycheque</li>
+        <li>✅ CPP, OAS & DB pension aware</li>
+        <li>✅ Two-stage bridge vs post-65 math</li>
+      </ul>
+    </div>
+  </section>
+
   <!-- ── Main ── -->
   <main class="main-content">
 
@@ -194,7 +209,7 @@
           <span>Expected Annual Retirement Expenses</span>
           <span class="input-value" id="val-expenses">$120,000</span>
         </div>
-        <input type="range" id="slider-expenses" min="50000" max="300000" step="5000" value="120000" />
+        <input type="range" id="slider-expenses" min="20000" max="300000" step="5000" value="120000" />
       </div>
 
       <!-- Annual Savings Rate — NEW configurable slider -->
@@ -204,6 +219,29 @@
           <span class="input-value" id="val-savingsrate">20%</span>
         </div>
         <input type="range" id="slider-savingsrate" min="5" max="80" step="1" value="20" />
+      </div>
+
+      <!-- DB Pension (annual, starts at age 65) -->
+      <div class="input-group">
+        <div class="input-label">
+          <span>Expected DB Pension (annual)</span>
+          <span class="input-value" id="val-pension">$0</span>
+        </div>
+        <input type="range" id="slider-pension" min="0" max="120000" step="1000" value="0" />
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">Starts at age 65. Leave at $0 if no DB pension.</div>
+      </div>
+
+      <!-- CPP / OAS toggles -->
+      <div class="input-group">
+        <div class="input-label"><span>Government benefits (at 65)</span></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:#cbd5e1;">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+            <input type="checkbox" id="chk-cpp" checked /> Include CPP (~$17K/yr)
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+            <input type="checkbox" id="chk-oas" checked /> Include OAS (~$8.5K/yr)
+          </label>
+        </div>
       </div>
 
       <!-- Expected Return Rate — slider -->
@@ -577,6 +615,6 @@
     </a>
   </div>
 
-  <script src="calculator.js?v=20260408a"></script>
+  <script src="calculator.js?v=20260408b"></script>
 </body>
 </html>
