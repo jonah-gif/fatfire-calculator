@@ -139,6 +139,7 @@ function bindCalc1() {
     { id: 'slider-savings',    stateKey: 'currentSavings',    display: 'val-savings',    format: v => fmt(v) },
     { id: 'slider-expenses',   stateKey: 'retirementExpenses',display: 'val-expenses',   format: v => fmt(v) },
     { id: 'slider-savingsrate',stateKey: 'savingsRate',       display: 'val-savingsrate',format: v => Math.round(v * 100) + '%', scale: 0.01 },
+    { id: 'slider-returnrate', stateKey: 'returnRate',        display: 'val-returnrate', format: v => Math.round(v * 100) + '%', scale: 0.01 },
   ];
 
   sliders.forEach(({ id, stateKey, display, format, scale }) => {
@@ -175,15 +176,6 @@ function bindCalc1() {
     });
   }
 
-  // Return rate toggle
-  document.querySelectorAll('.toggle-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      state.returnRate = parseFloat(btn.dataset.rate);
-      renderCalc1();
-    });
-  });
 }
 
 // Sync calc1 income to calc2 (no separate UI element — value carried silently)

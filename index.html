@@ -206,16 +206,13 @@
         <input type="range" id="slider-savingsrate" min="5" max="80" step="1" value="20" />
       </div>
 
-      <!-- Return Rate Toggle -->
+      <!-- Expected Return Rate — slider -->
       <div class="input-group">
         <div class="input-label">
           <span>Expected Return Rate</span>
+          <span class="input-value" id="val-returnrate">8%</span>
         </div>
-        <div class="toggle-group">
-          <button class="toggle-btn" data-rate="0.05">Conservative<br>5%</button>
-          <button class="toggle-btn active" data-rate="0.08">Moderate<br>8%</button>
-          <button class="toggle-btn" data-rate="0.10">Aggressive<br>10%</button>
-        </div>
+        <input type="range" id="slider-returnrate" min="3" max="12" step="1" value="8" />
       </div>
 
       <!-- Results -->
@@ -580,6 +577,6 @@
     </a>
   </div>
 
-  <script src="calculator.js?v=20260406c"></script>
+  <script src="calculator.js?v=20260408a"></script>
 </body>
 </html>
