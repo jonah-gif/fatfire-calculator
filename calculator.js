@@ -12,6 +12,9 @@ const state = {
   retirementExpenses: 120000,
   returnRate: 0.08,   // Moderate default
   savingsRate: 0.20,  // NEW — configurable savings rate
+  dbPension: 0,
+  includeCPP: true,
+  includeOAS: true,
   province: 'ON',
 
   // Calc 2
@@ -70,38 +73,40 @@ function getEffectiveTaxRate(income, province) {
 
 // ── Core FatFIRE Calculation ───────────────────────────────────────────────
 function calcFatFIRE(currentAge, income, savings, retExpenses, returnRate, province) {
-  const target = retExpenses * 25;                           // 4% rule
+  const cppAnnual = state.includeCPP ? 17000 : 0;
+  const oasAnnual = state.includeOAS ? 8500  : 0;
+  const pensionAnnual = state.dbPension || 0;
+  const guaranteedPost65 = cppAnnual + oasAnnual + pensionAnnual;
+  const post65NetExpenses = Math.max(retExpenses - guaranteedPost65, 0);
+  const post65Target = post65NetExpenses * 25;
+
   const taxRate = getEffectiveTaxRate(income, province || state.province);
-  // Capital gains: 50% inclusion rate in Canada, so effective tax on investment gains
-  // is approximately half the marginal rate
   const investmentTaxRate = taxRate * 0.5;
   const afterTaxReturn = returnRate * (1 - investmentTaxRate);
-  const annualContrib = income * state.savingsRate;          // USE configurable rate
+  const annualContrib = income * state.savingsRate;
   const r = afterTaxReturn;
-  const PV = savings;
-  const PMT = annualContrib;
 
   let n = 0;
-  let fv = PV;
+  let fv = savings;
+  let target = retExpenses * 25;
   const maxYears = 80;
-  while (fv < target && n < maxYears) {
-    fv = fv * (1 + r) + PMT;
+
+  while (n < maxYears) {
+    const prospectiveFireAge = currentAge + n;
+    const bridgeYears = Math.max(65 - prospectiveFireAge, 0);
+    const bridgeNut = bridgeYears * retExpenses;
+    const post65NutPV = post65Target / Math.pow(1 + r, bridgeYears);
+    const neededAtFire = bridgeNut + post65NutPV;
+    target = neededAtFire;
+    if (fv >= target) break;
+    fv = fv * (1 + r) + annualContrib;
     n++;
   }
 
   const fireAge = currentAge + n;
   const progress = Math.min((savings / target) * 100, 100);
 
-  return {
-    target,
-    afterTaxReturn,
-    annualContrib,
-    n,
-    fireAge,
-    progress,
-    taxRate,
-    fvAtN: fv,
-  };
+  return { target, afterTaxReturn, annualContrib, n, fireAge, progress, taxRate, fvAtN: fv, guaranteedPost65, post65Target };
 }
 
 // ── Format helpers ─────────────────────────────────────────────────────────
@@ -140,6 +145,7 @@ function bindCalc1() {
     { id: 'slider-expenses',   stateKey: 'retirementExpenses',display: 'val-expenses',   format: v => fmt(v) },
     { id: 'slider-savingsrate',stateKey: 'savingsRate',       display: 'val-savingsrate',format: v => Math.round(v * 100) + '%', scale: 0.01 },
     { id: 'slider-returnrate', stateKey: 'returnRate',        display: 'val-returnrate', format: v => Math.round(v * 100) + '%', scale: 0.01 },
+    { id: 'slider-pension',    stateKey: 'dbPension',         display: 'val-pension',    format: v => fmt(v) },
   ];
 
   sliders.forEach(({ id, stateKey, display, format, scale }) => {
@@ -176,6 +182,10 @@ function bindCalc1() {
     });
   }
 
+  const cppBox = document.getElementById('chk-cpp');
+  if (cppBox) cppBox.addEventListener('change', () => { state.includeCPP = cppBox.checked; renderCalc1(); });
+  const oasBox = document.getElementById('chk-oas');
+  if (oasBox) oasBox.addEventListener('change', () => { state.includeOAS = oasBox.checked; renderCalc1(); });
 }
 
 // Sync calc1 income to calc2 (no separate UI element — value carried silently)
